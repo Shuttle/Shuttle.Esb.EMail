@@ -73,7 +73,7 @@ namespace Shuttle.EMail.Server
 
 					if (!File.Exists(path))
 					{
-						throw new UnrecoverableHandlerException(string.Format("Cannot find attachment '{0}'.  The mail cannot be sent.",
+						throw new UnrecoverableHandlerException(string.Format("Cannot find attachment '{0}'.  The e-mail cannot be sent.",
 																			  path));
 					}
 
