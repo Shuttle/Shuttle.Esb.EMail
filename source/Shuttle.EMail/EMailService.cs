@@ -8,13 +8,13 @@ namespace Shuttle.EMail
 {
 	public class EMailService : IEMailService
 	{
-		private readonly IEMailConfiguration configuration;
+		private readonly IEMailConfiguration _configuration;
 
 		public EMailService(IEMailConfiguration configuration)
 		{
 			Guard.AgainstNull(configuration, "configuration");
 
-			this.configuration = configuration;
+			_configuration = configuration;
 		}
 
 		public string AddAttachment(SendEMailCommand command, string path)
@@ -26,7 +26,7 @@ namespace Shuttle.EMail
 
 			var name = Guid.NewGuid().ToString("n");
 			var file = string.Format("{0}{1}", name, Path.GetExtension(path));
-			var targetPath = Path.Combine(configuration.AttachmentFolder, file);
+			var targetPath = Path.Combine(_configuration.AttachmentFolder, file);
 
 			try
 			{
@@ -34,7 +34,7 @@ namespace Shuttle.EMail
 			}
 			catch (Exception ex)
 			{
-				throw new EMailException(string.Format("File '{0}' not added as attachment.  Exception reported: {1}", path, ex.CompactMessages()));
+				throw new EMailException(string.Format("File '{0}' not added as attachment.  Exception reported: {1}", path, ex.AllMessages()));
 			}
 
 			var log = new StringBuilder();
@@ -48,7 +48,7 @@ namespace Shuttle.EMail
 			log.AppendFormat("Source identity\t{0}", string.Format(@"{0}\{1}", Environment.UserDomainName, Environment.UserName));
 			log.AppendLine();
 
-			File.WriteAllText(Path.Combine(configuration.AttachmentFolder, string.Format("{0}.log", name)), log.ToString());
+			File.WriteAllText(Path.Combine(_configuration.AttachmentFolder, string.Format("{0}.log", name)), log.ToString());
 
 			command.Attachments.Add(file);
 

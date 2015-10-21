@@ -2,26 +2,26 @@
 using System.Net.Mail;
 using System.Text;
 using Shuttle.Core.Infrastructure;
-using Shuttle.ESB.Core;
 using Shuttle.EMail.Messages;
+using Shuttle.ESB.Core;
 
 namespace Shuttle.EMail.Server
 {
 	public class SendEMailHandler : IMessageHandler<SendEMailCommand>
 	{
-		private readonly IEMailGateway gateway;
-		private readonly IEMailConfiguration configuration;
-		private readonly ILog log;
+		private readonly IEMailConfiguration _configuration;
+		private readonly IEMailService _service;
+		private readonly ILog _log;
 
-		public SendEMailHandler(IEMailGateway gateway, IEMailConfiguration configuration)
+		public SendEMailHandler(IEMailService service, IEMailConfiguration configuration)
 		{
-			Guard.AgainstNull(gateway, "gateway");
+			Guard.AgainstNull(service, "service");
 			Guard.AgainstNull(configuration, "configuration");
 
-			this.gateway = gateway;
-			this.configuration = configuration;
+			_service = service;
+			_configuration = configuration;
 
-			log = Log.For(this);
+			_log = Log.For(this);
 		}
 
 		public void ProcessMessage(HandlerContext<SendEMailCommand> context)
@@ -36,10 +36,10 @@ namespace Shuttle.EMail.Server
 			}
 
 			var mail = new MailMessage(message.From, message.To.Replace(';', ','), message.Subject, body)
-						{
-							IsBodyHtml = message.IsBodyHtml,
-							Priority = message.GetMailPriority()
-						};
+			{
+				IsBodyHtml = message.IsBodyHtml,
+				Priority = message.GetMailPriority()
+			};
 
 			if (message.HasBodyEncoding())
 			{
@@ -69,12 +69,12 @@ namespace Shuttle.EMail.Server
 
 				foreach (var file in message.Attachments)
 				{
-					var path = Path.Combine(configuration.AttachmentFolder, file);
+					var path = Path.Combine(_configuration.AttachmentFolder, file);
 
 					if (!File.Exists(path))
 					{
 						throw new UnrecoverableHandlerException(string.Format("Cannot find attachment '{0}'.  The e-mail cannot be sent.",
-																			  path));
+							path));
 					}
 
 					mail.Attachments.Add(new Attachment(new FileStream(path, FileMode.Open), file));
@@ -85,16 +85,20 @@ namespace Shuttle.EMail.Server
 				attachments = attachmentsBuilder.ToString();
 			}
 
-			log.Trace(string.Format("[sending mail] : from = {0} / to = {1} / subject = {2} / attachments = {3}", message.From, message.To, message.Subject, attachments));
+			_log.Trace(string.Format("[sending mail] : from = {0} / to = {1} / subject = {2} / attachments = {3}", message.From,
+				message.To, message.Subject, attachments));
 
-			gateway.SendMail(mail);
+			using (var client = new SmtpClient())
+			{
+				client.Send(mail);
+			}
 
 			foreach (var file in message.Attachments)
 			{
-				context.Bus.SendLocal(new RemoveAttachmentCommand
-										{
-											File = file
-										});
+				context.Send(new RemoveAttachmentCommand
+				{
+					File = file
+				}, c => c.Local());
 			}
 		}
 

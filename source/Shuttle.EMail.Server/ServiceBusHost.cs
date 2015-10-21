@@ -1,49 +1,55 @@
 using System;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Data;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
-using Shuttle.Core.Infrastructure.Castle;
 using Shuttle.Core.Infrastructure.Log4Net;
 using Shuttle.ESB.Castle;
 using Shuttle.ESB.Core;
-using Shuttle.ESB.Modules.ActiveTimeRange;
+using Shuttle.ESB.Modules;
 using Shuttle.ESB.SqlServer;
 
 namespace Shuttle.EMail.Server
 {
 	public class ServiceBusHost : IHost, IDisposable
 	{
-		private readonly WindsorContainer container = new WindsorContainer();
+		private readonly WindsorContainer _container = new WindsorContainer();
 
-		private IServiceBus bus;
+		private IServiceBus _bus;
 
 		public void Dispose()
 		{
 			Log.Information("E-Mail Server Stopped.");
 
-			bus.AttemptDispose();
+			_bus.AttemptDispose();
 		}
 
 		public void Start()
 		{
-			Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(ServiceBusHost))));
+			Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof (ServiceBusHost))));
 
-			ConnectionStrings.Approve();
+			new ConnectionStringService().Approve();
 
 			Log.Information("E-Mail Server Started.");
 
-			container.RegisterSingleton<IEMailGateway, EMailGateway>();
-			container.RegisterSingleton<IEMailConfiguration, EMailConfiguration>();
-			container.RegisterTransient<IMessageHandler>("Shuttle.EMail.Server");
+			_container.Register(Component.For<IEMailConfiguration>().ImplementedBy<EMailConfiguration>());
+			_container.Register(Component.For<IEMailService>().ImplementedBy<EMailService>());
 
-			bus = ServiceBus
-				.Create()
-				.MessageHandlerFactory(new CastleMessageHandlerFactory(container))
-				.SubscriptionManager(SubscriptionManager.Default())
-				.AddModule(new ActiveTimeRangeModule())
-				.Start();
+			_container.Register(
+				Classes
+					.FromThisAssembly()
+					.BasedOn(typeof (IMessageHandler<>))
+					.WithServiceFirstInterface());
+
+			_bus = ServiceBus
+				.Create(c =>
+				{
+					c.MessageHandlerFactory(new CastleMessageHandlerFactory(_container));
+					c.SubscriptionManager(SubscriptionManager.Default());
+					c.AddModule(new ActiveTimeRangeModule());
+				});
 		}
 	}
 }

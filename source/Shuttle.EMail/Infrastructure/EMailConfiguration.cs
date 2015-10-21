@@ -5,25 +5,22 @@ namespace Shuttle.EMail
 {
 	public class EMailConfiguration : IEMailConfiguration
 	{
-		private readonly ConfigurationItem<string> attachmentFolder;
-
 		public EMailConfiguration()
 		{
-			attachmentFolder = ConfigurationItem<string>.ReadSetting("AttachmentFolder");
+			AttachmentFolder = ConfigurationItem<string>.ReadSetting("AttachmentFolder").GetValue();
 
-			if (!Directory.Exists(AttachmentFolder))
+			if (Directory.Exists(AttachmentFolder))
 			{
-				var message = string.Format("Attachment folder '{0}' does not exist.", AttachmentFolder);
-
-				Log.Error(message);
-
-				throw new DirectoryNotFoundException(message);
+				return;
 			}
+
+			var message = string.Format("Attachment folder '{0}' does not exist.", AttachmentFolder);
+
+			Log.Error(message);
+
+			throw new DirectoryNotFoundException(message);
 		}
 
-		public string AttachmentFolder
-		{
-			get { return attachmentFolder.GetValue(); }
-		}
+		public string AttachmentFolder { get; private set; }
 	}
 }
