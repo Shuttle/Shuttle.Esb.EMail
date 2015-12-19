@@ -24,7 +24,7 @@ namespace Shuttle.EMail.Server
 			_log = Log.For(this);
 		}
 
-		public void ProcessMessage(HandlerContext<SendEMailCommand> context)
+		public void ProcessMessage(IHandlerContext<SendEMailCommand> context)
 		{
 			var message = context.Message;
 

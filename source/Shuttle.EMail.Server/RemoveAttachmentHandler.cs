@@ -16,7 +16,7 @@ namespace Shuttle.EMail.Server
 			this.configuration = configuration;
 		}
 
-		public void ProcessMessage(HandlerContext<RemoveAttachmentCommand> context)
+		public void ProcessMessage(IHandlerContext<RemoveAttachmentCommand> context)
 		{
 			var file = context.Message.File;
 
