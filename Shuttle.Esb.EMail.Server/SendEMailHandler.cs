@@ -2,9 +2,8 @@
 using System.Net.Mail;
 using System.Text;
 using Shuttle.Core.Infrastructure;
-using Shuttle.ESB.Core;
 
-namespace Shuttle.EMail.Server
+namespace Shuttle.Esb.EMail.Server
 {
 	public class SendEMailHandler : IMessageHandler<SendEMailCommand>
 	{

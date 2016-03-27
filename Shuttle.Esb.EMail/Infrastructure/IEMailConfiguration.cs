@@ -1,4 +1,4 @@
-namespace Shuttle.EMail
+namespace Shuttle.Esb.EMail
 {
 	public interface IEMailConfiguration
 	{

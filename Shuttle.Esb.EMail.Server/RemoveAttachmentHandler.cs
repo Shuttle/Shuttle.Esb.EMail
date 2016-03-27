@@ -1,8 +1,7 @@
 using System.IO;
 using Shuttle.Core.Infrastructure;
-using Shuttle.ESB.Core;
 
-namespace Shuttle.EMail.Server
+namespace Shuttle.Esb.EMail.Server
 {
 	public class RemoveAttachmentHandler : IMessageHandler<RemoveAttachmentCommand>
 	{

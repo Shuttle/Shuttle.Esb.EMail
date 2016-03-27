@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mail;
 
-namespace Shuttle.EMail
+namespace Shuttle.Esb.EMail
 {
-	public class SendEMailCommand 
+	public class SendEMailCommand
 	{
 		public SendEMailCommand()
 		{

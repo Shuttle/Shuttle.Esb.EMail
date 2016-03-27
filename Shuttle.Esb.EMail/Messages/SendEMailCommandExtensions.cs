@@ -3,7 +3,7 @@ using System.Net.Mail;
 using System.Text;
 using Shuttle.Core.Infrastructure;
 
-namespace Shuttle.EMail
+namespace Shuttle.Esb.EMail
 {
 	public static class SendEMailCommandExtensions
 	{

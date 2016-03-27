@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <package >
 	<metadata>
-		<id>shuttle-email</id>
+		<id>Shuttle.Esb.EMail</id>
 		<version>{semver}</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
-		<licenseUrl>https://github.com/shuttle/shuttle-email/raw/master/LICENSE</licenseUrl>
-		<projectUrl>https://github.com/shuttle/shuttle-email</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/shuttle-email/master/.media/logo.png</iconUrl>
+		<licenseUrl>https://github.com/shuttle/Shuttle.Esb.EMail/raw/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shuttle/Shuttle.Esb.EMail</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.EMail/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Cotains configuration, messages, resources, and services that facilitates e-mailing using the smtp Shuttle.EMail.Server shuttle-esb endpoint.</description>
+		<description>Cotains configuration, messages, resources, and services that facilitates e-mailing using the smtp Shuttle.Esb.EMail.Server endpoint.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle shuttle-esb shuttle-email smtp email</tags>
+		<tags>shuttle shuttle-esb shuttle-esb-email smtp email</tags>
 	</metadata>
 </package>

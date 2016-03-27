@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Shuttle.EMail {
+namespace Shuttle.Esb.EMail {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Shuttle.EMail {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Shuttle.EMail.EMailResources", typeof(EMailResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Shuttle.Esb.EMail.EMailResources", typeof(EMailResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

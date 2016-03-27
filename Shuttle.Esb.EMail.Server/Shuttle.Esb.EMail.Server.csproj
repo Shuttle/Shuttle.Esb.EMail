@@ -8,8 +8,8 @@
     <ProjectGuid>{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Shuttle.EMail.Server</RootNamespace>
-    <AssemblyName>Shuttle.EMail.Server</AssemblyName>
+    <RootNamespace>Shuttle.Esb.EMail.Server</RootNamespace>
+    <AssemblyName>Shuttle.Esb.EMail.Server</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -79,44 +79,40 @@
       <HintPath>..\packages\RabbitMQ.Client.3.5.7\lib\net40\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Data, Version=3.2.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-core-data.3.2.11\lib\net40-full\Shuttle.Core.Data.dll</HintPath>
+    <Reference Include="Shuttle.Core.Data, Version=3.2.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Data.3.2.14\lib\net40-full\Shuttle.Core.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Host, Version=3.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-core-host.3.2.8\lib\net40-full\Shuttle.Core.Host.exe</HintPath>
+    <Reference Include="Shuttle.Core.Host, Version=3.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Host.3.2.10\lib\net40-full\Shuttle.Core.Host.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure, Version=4.1.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-core-infrastructure.4.1.9\lib\net40-full\Shuttle.Core.Infrastructure.dll</HintPath>
+    <Reference Include="Shuttle.Core.Infrastructure, Version=4.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Infrastructure.4.1.11\lib\net40-full\Shuttle.Core.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure.Log4Net, Version=3.2.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-core-infrastructure-log4net.3.2.5\lib\net40-full\Shuttle.Core.Infrastructure.Log4Net.dll</HintPath>
+    <Reference Include="Shuttle.Core.Log4Net, Version=3.2.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Log4Net.3.2.8\lib\net40-full\Shuttle.Core.Log4Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.ESB.Castle, Version=3.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-esb-castle.3.8.4\lib\net40-full\Shuttle.ESB.Castle.dll</HintPath>
+    <Reference Include="Shuttle.Esb, Version=5.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.5.1.6\lib\net40-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.ESB.Core, Version=5.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-esb-core.5.1.3\lib\net40-full\Shuttle.ESB.Core.dll</HintPath>
+    <Reference Include="Shuttle.Esb.Castle, Version=3.8.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.Castle.3.8.7\lib\net40-full\Shuttle.Esb.Castle.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.ESB.Modules, Version=3.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-esb-modules.3.8.4\lib\net40-full\Shuttle.ESB.Modules.dll</HintPath>
+    <Reference Include="Shuttle.Esb.Msmq, Version=3.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.Msmq.3.8.5\lib\net40-full\Shuttle.Esb.Msmq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.ESB.Msmq, Version=3.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-esb-msmq.3.8.4\lib\net40-full\Shuttle.ESB.Msmq.dll</HintPath>
+    <Reference Include="Shuttle.Esb.RabbitMQ, Version=3.9.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.RabbitMQ.3.9.5\lib\net40-full\Shuttle.Esb.RabbitMQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.ESB.RabbitMQ, Version=3.9.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-esb-rabbitmq.3.9.4\lib\net40-full\Shuttle.ESB.RabbitMQ.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.ESB.SqlServer, Version=3.8.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-esb-sqlserver.3.8.5\lib\net40-full\Shuttle.ESB.SqlServer.dll</HintPath>
+    <Reference Include="Shuttle.Esb.SqlServer, Version=3.8.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.SqlServer.3.8.8\lib\net40-full\Shuttle.Esb.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -132,9 +128,9 @@
     <Compile Include="Host.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shuttle.EMail\Shuttle.EMail.csproj">
+    <ProjectReference Include="..\Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj">
       <Project>{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}</Project>
-      <Name>Shuttle.EMail</Name>
+      <Name>Shuttle.Esb.EMail</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

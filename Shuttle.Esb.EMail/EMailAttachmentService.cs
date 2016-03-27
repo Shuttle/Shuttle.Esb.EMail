@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using Shuttle.Core.Infrastructure;
 
-namespace Shuttle.EMail
+namespace Shuttle.Esb.EMail
 {
 	public class EMailAttachmentService : IEMailAttachmentService
 	{

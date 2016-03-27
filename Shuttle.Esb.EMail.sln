@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.EMail", "Shuttle.EMail\Shuttle.EMail.csproj", "{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail", "Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj", "{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.EMail.Server", "Shuttle.EMail.Server\Shuttle.EMail.Server.csproj", "{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail.Server", "Shuttle.Esb.EMail.Server\Shuttle.Esb.EMail.Server.csproj", "{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC9294D1-7CDD-45D1-A85E-2B63016EB3B9}"
 	ProjectSection(SolutionItems) = preProject

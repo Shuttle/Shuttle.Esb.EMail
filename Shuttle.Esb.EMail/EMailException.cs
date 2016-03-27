@@ -1,6 +1,6 @@
 using System;
 
-namespace Shuttle.EMail
+namespace Shuttle.Esb.EMail
 {
 	public class EMailException : Exception
 	{
