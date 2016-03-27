@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 #if NET40FULL
@@ -26,10 +26,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Shuttle.Esb.EMail.Server for .NET Framework 4.6.1")]
 #endif
 
-[assembly: AssemblyVersion("2.1.2.0")]
+[assembly: AssemblyVersion("2.1.3.0")]
 [assembly: AssemblyCopyright("Copyright © Eben Roux 2016")]
 [assembly: AssemblyProduct("Shuttle.Esb.EMail")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("2.1.2")]
+[assembly: AssemblyInformationalVersion("2.1.3")]
 [assembly: ComVisible(false)]
