@@ -21,10 +21,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Shuttle.Esb.EMail for .NET Framework 4.6.1")]
 #endif
 
-[assembly: AssemblyVersion("2.1.4.0")]
+[assembly: AssemblyVersion("2.1.5.0")]
 [assembly: AssemblyCopyright("Copyright © Eben Roux 2016")]
 [assembly: AssemblyProduct("Shuttle.Esb.EMail")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("2.1.4")]
+[assembly: AssemblyInformationalVersion("2.1.5")]
 [assembly: ComVisible(false)]
