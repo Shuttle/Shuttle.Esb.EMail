@@ -1,30 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail", "Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj", "{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail", "Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj", "{D245753A-425F-43FC-BB3C-C1E5462FC5A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail.Server", "Shuttle.Esb.EMail.Server\Shuttle.Esb.EMail.Server.csproj", "{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail.Server", "Shuttle.Esb.EMail.Server\Shuttle.Esb.EMail.Server.csproj", "{EFC13583-963D-4F78-896F-A433D45F17C5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC9294D1-7CDD-45D1-A85E-2B63016EB3B9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{714ECD20-D98F-43AA-B859-392B73FC9D27}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{ED85069D-479A-4E80-AE1D-D139542843FC}"
-	ProjectSection(SolutionItems) = preProject
-		.build\app.config = .build\app.config
-		.build\package.msbuild = .build\package.msbuild
-		.build\package.nuspec = .build\package.nuspec
-		.build\Shuttle.Core.MSBuild.dll = .build\Shuttle.Core.MSBuild.dll
-		.build\Shuttle.Core.MSBuild.targets = .build\Shuttle.Core.MSBuild.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BEF64567-77E4-4E96-8CBB-C8A14AC54EDB}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
 	EndProjectSection
 EndProject
 Global
@@ -33,16 +19,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B48CBFC-6AD5-4787-89AB-0B00C02CF2E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D245753A-425F-43FC-BB3C-C1E5462FC5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D245753A-425F-43FC-BB3C-C1E5462FC5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D245753A-425F-43FC-BB3C-C1E5462FC5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D245753A-425F-43FC-BB3C-C1E5462FC5A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC13583-963D-4F78-896F-A433D45F17C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC13583-963D-4F78-896F-A433D45F17C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC13583-963D-4F78-896F-A433D45F17C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC13583-963D-4F78-896F-A433D45F17C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7380C49B-8E47-45E0-91D4-6B04AF83AE12}
 	EndGlobalSection
 EndGlobal

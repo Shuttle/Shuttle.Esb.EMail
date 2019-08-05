@@ -1,9 +1,9 @@
 using System;
 using System.Net.Mail;
 using System.Text;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Contract;
 
-namespace Shuttle.Esb.EMail
+namespace Shuttle.Esb.EMail.Messages
 {
 	public static class SendEMailCommandExtensions
 	{

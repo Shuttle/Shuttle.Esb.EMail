@@ -1,4 +1,4 @@
-namespace Shuttle.Esb.EMail
+namespace Shuttle.Esb.EMail.Messages
 {
 	public class RemoveAttachmentCommand
 	{

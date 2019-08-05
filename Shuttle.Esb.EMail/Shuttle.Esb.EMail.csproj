@@ -1,108 +1,41 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AD6018C6-069E-44D5-BBDC-82DEBA8AF281}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Shuttle.Esb.EMail</RootNamespace>
-    <AssemblyName>Shuttle.Esb.EMail</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworks>net461;netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Framework Condition=" '$(Framework)' == '' ">net45-full</Framework>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Framework)' == 'net45-full'">
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NET45FULL</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Framework)' == 'net451-full'">
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NET451FULL</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Framework)' == 'net452-full'">
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NET452FULL</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Framework)' == 'net46-full'">
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NET46FULL</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Framework)' == 'net461-full'">
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <DefineConstants>$(DefineConstants);NET461FULL</DefineConstants>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Shuttle.Core.Infrastructure, Version=4.2.81.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Core.Infrastructure.4.2.81\lib\net45-full\Shuttle.Core.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <None Include=".build\package.msbuild" />
+    <None Include=".build\package.nuspec" />
+    <None Include=".build\Shuttle.MSBuild.dll" />
+    <None Include=".build\Shuttle.MSBuild.targets" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="EMailException.cs" />
-    <Compile Include="EMailResources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Folder Include="Messages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.3" />
+    <PackageReference Include="Shuttle.Core.Container" Version="11.0.0" />
+    <PackageReference Include="Shuttle.Core.Contract" Version="10.0.1" />
+    <PackageReference Include="Shuttle.Core.Reflection" Version="10.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
       <DesignTime>True</DesignTime>
-      <DependentUpon>EMailResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="EMailAttachmentService.cs" />
-    <Compile Include="IEMailAttachmentService.cs" />
-    <Compile Include="Infrastructure\EMailConfiguration.cs" />
-    <Compile Include="Infrastructure\IEMailConfiguration.cs" />
-    <Compile Include="Messages\RemoveAttachmentCommand.cs" />
-    <Compile Include="Messages\SendEMailCommand.cs" />
-    <Compile Include="Messages\SendEMailCommandExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="EMailResources.resx">
+    <EmbeddedResource Update="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>EMailResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>
