@@ -79,7 +79,7 @@ A server endpoint should exist that perform that actual SMTP communication.  To 
 
 Since the `Shuttle.Esb.EMail.Server` does not include any specific queue implementation out-of-the-box you would need to drop the relevant assemblies into the deployment folder.  
 
-If you do not have the assemblies readily available from some cache, such as the Nuget cache, then you could perform somewhat of a *faux`-install of the relevant package and copy the relevant assemblies from there:
+If you do not have the assemblies readily available from some cache, such as the Nuget cache, then you could perform somewhat of a *faux*-install of the relevant package and copy the relevant assemblies from there:
 
 ```
 nuget install Shuttle.Esb.RabbitMQ -OutputDirectory packages
