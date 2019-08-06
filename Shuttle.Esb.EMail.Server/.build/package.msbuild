@@ -1,0 +1,89 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Package" ToolsVersion="4.0">
+	<PropertyGroup>
+		<DeploymentFolder>deployment</DeploymentFolder>
+	</PropertyGroup>
+
+	<Import Project="Shuttle.MSBuild.targets" />
+
+	<ItemGroup>
+    <Framework Include="net461;netcoreapp2.1" />
+    <ServerReference Include="..\Shuttle.Esb.EMail.Server.csproj" />
+	</ItemGroup>
+
+	<Target Name="Build">
+		<MSBuild Projects="@(ServerReference)" Targets="Rebuild" Properties="Configuration=Debug;Platform=AnyCPU" />
+		<MSBuild Projects="@(ServerReference)" Targets="Rebuild" Properties="Configuration=Release;Platform=AnyCPU" />
+	</Target>
+
+	<Target Name="Publish">
+		<Exec Command="dotnet publish @(ServerReference) -c Release -f %(Framework.Identity) --no-build" />
+	</Target>
+
+	<Target Name="SemanticVersion">
+		<Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
+			<Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
+		</Prompt>
+
+		<Error Text="Please enter a version number." Condition="$(SemanticVersion) == ''" />
+
+		<ItemGroup>
+      <AssemblyInfoFiles Include="..\Properties\AssemblyInfo.cs" />
+		</ItemGroup>
+
+		<RegexFindAndReplace Files="@(AssemblyInfoFiles)"
+		                     FindExpression="AssemblyInformationalVersion\s*\(\s*&quot;.*&quot;\s*\)"
+		                     ReplacementText="AssemblyInformationalVersion(&quot;$(SemanticVersion)&quot;)" />
+		<RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyVersion\s*\(\s*&quot;.*&quot;\s*\)"
+		                     ReplacementText="AssemblyVersion(&quot;$(SemanticVersion).0&quot;)" />
+	</Target>
+
+	<Target Name="ZipDeployment">
+		<ItemGroup>
+			<ZipFiles Include="$(OutputPath)\**\*.*" />
+		</ItemGroup>
+
+		<Zip
+			Files="@(ZipFiles)"
+			RelativeFolder="$(OutputPath)"
+			ZipFilePath="$(MSBuildProjectDirectory)\$(DeploymentFolder)\Shuttle.Esb.EMail.Server-$(Framework).zip" />
+	</Target>
+
+	<Target Name="PackageServer">
+    <ItemGroup>
+      <Net461ServerFiles Include="..\bin\Release\net461\publish\**\*.*" Exclude="..\bin\Release\net461\publish\**\*.pdb;..\bin\Release\net461\publish\**\*.config" />
+      <Core21ServerFiles Include="..\bin\Release\netcoreapp2.1\publish\**\*.*" Exclude="..\bin\Release\netcoreapp2.1\publish\**\*.pdb;..\bin\Release\netcoreapp2.1\publish\**\*.config" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(Net461ServerFiles)" DestinationFolder="$(DeploymentFolder)\net461\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(Core21ServerFiles)" DestinationFolder="$(DeploymentFolder)\netcoreapp2.1\%(RecursiveDir)" SkipUnchangedFiles="false" />
+
+    <Copy SourceFiles=".\app.config" DestinationFiles="$(DeploymentFolder)\netcoreapp2.1\Shuttle.Esb.EMail.Server.dll.config" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles=".\app.config" DestinationFiles="$(DeploymentFolder)\net461\Shuttle.Esb.EMail.Server.exe.config" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles=".\log4net.xml" DestinationFolder="$(DeploymentFolder)\netcoreapp2.1\" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles=".\log4net.xml" DestinationFolder="$(DeploymentFolder)\net461\" SkipUnchangedFiles="false"/>
+  </Target>
+
+	<Target Name="Package" DependsOnTargets="SemanticVersion">
+		<MSBuild
+			Projects="$(MSBuildProjectFile)"
+			Targets="Build" />
+
+		<MSBuild
+			Projects="$(MSBuildProjectFile)"
+			Targets="Publish" />
+
+		<MSBuild
+			Projects="$(MSBuildProjectFile)"
+			Targets="PackageServer" />
+
+		<MSBuild
+			Projects="$(MSBuildProjectFile)"
+			Targets="ZipDeployment"
+			Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\net461;Framework=net461" />
+
+		<MSBuild
+			Projects="$(MSBuildProjectFile)"
+			Targets="ZipDeployment"
+			Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\netcoreapp2.1;Framework=netcoreapp2.1" />
+	</Target>
+</Project>

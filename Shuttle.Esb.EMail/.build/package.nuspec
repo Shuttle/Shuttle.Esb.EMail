@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>Shuttle.Esb.EMail</id>
+		<version>{semver}</version>
+		<authors>Eben Roux</authors>
+		<owners>Eben Roux</owners>
+    <license type="expression">BSD-3-Clause</license>
+		<projectUrl>https://github.com/shuttle/Shuttle.Esb.EMail</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Esb.EMail/master/.media/logo.png</iconUrl>
+    <repository type="git" url="https://github.com/Shuttle/Shuttle.Esb.EMail.git" />
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Contains messages and services that facilitate e-mailing using an SMTP-enabled Shuttle.Esb.EMail.Server endpoint.</description>
+		<releaseNotes/>
+    <copyright>Copyright (c) {year}, Eben Roux</copyright>
+		<tags>shuttle smtp email</tags>
+    <dependencies>
+      <dependency id="Shuttle.Core.Configuration" version="{Shuttle.Core.Configuration-version}" />
+      <dependency id="Shuttle.Core.Container" version="{Shuttle.Core.Container-version}" />
+      <dependency id="Shuttle.Core.Contract" version="{Shuttle.Core.Contract-version}" />
+      <dependency id="Shuttle.Core.Reflection" version="{Shuttle.Core.Reflection-version}" />
+    </dependencies>
+	</metadata>
+</package>
