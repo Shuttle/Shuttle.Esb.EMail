@@ -9,7 +9,7 @@ namespace Shuttle.Esb.EMail.Server
         [ConfigurationProperty("host", IsRequired = true)]
         public string Host => (string)this["host"];
 
-        [ConfigurationProperty("port", IsRequired = true)]
+        [ConfigurationProperty("port", IsRequired = false, DefaultValue = 25)]
         public int Port => (int)this["port"];
 
         [ConfigurationProperty("useDefaultCredentials", IsRequired = false, DefaultValue = true)]
