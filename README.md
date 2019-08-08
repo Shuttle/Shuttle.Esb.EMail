@@ -107,4 +107,4 @@ For a .Net Core 2.1 framework-dependent build:
 msbuild package-email-server.msbuild /p:Framework:netcoreapp2.1
 ```
 
-
+Once the deployment has been packaged you would want to change the relevant configuration settings in the `Shuttle.Esb.EMail.Server.[exe|dll].config` file.
