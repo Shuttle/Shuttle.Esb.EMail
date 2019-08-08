@@ -75,9 +75,11 @@ A server endpoint should exist that perform that actual SMTP communication.  To 
 | deferredQueueUri | n/a | Specify the `uri` to use as the inbox deferred queue. |
 | errorQueueUri | n/a | Specify the `uri` to use as the inbox error queue. |
 
-### Queue configuration
+### Packaging
 
-Since the `Shuttle.Esb.EMail.Server` does not include any specific queue implementation out-of-the-box you would need to drop the relevant assemblies into the deployment folder.  
+Since the `Shuttle.Esb.EMail.Server` does not include any specific queue implementation out-of-the-box you would need to drop the relevant assemblies into the deployment folder.
+
+#### Queue configuration
 
 If you do not have the assemblies readily available from some cache, such as the Nuget cache, then you could perform somewhat of a *faux*-install of the relevant package and copy the relevant assemblies from there:
 
@@ -85,4 +87,24 @@ If you do not have the assemblies readily available from some cache, such as the
 nuget install Shuttle.Esb.RabbitMQ -OutputDirectory packages
 ```
 
-Here the `Shuttle.Esb.RabbitMQ` package will be extracted to the `packages` folder along with all the relvant dependencies.
+Here the `Shuttle.Esb.RabbitMQ` package will be extracted to the `packages` folder along with all the relevant dependencies.
+
+#### MSBuild
+
+There is a basic boilerplate msbuild project located in the [.build folder](https://github.com/Shuttle/Shuttle.Esb.EMail/tree/master/.build) on GitHub.
+
+You will notice some defaults in the [package-email-server.msbuild](https://github.com/Shuttle/Shuttle.Esb.EMail/blob/master/.build/package-email-server.msbuild) file that you can override with command line options.
+
+For the default .Net 4.6.1 build that uses RabbitMQ you can execute the following from the command line in the `.build` folder:
+
+```
+msbuild package-email-server.msbuild
+```
+
+For a .Net Core 2.1 framework-dependent build:
+
+```
+msbuild package-email-server.msbuild /p:Framework:netcoreapp2.1
+```
+
+
