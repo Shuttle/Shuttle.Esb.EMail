@@ -2,11 +2,17 @@
 using System.Configuration;
 using Shuttle.Core.Configuration;
 
-namespace Shuttle.Esb.EMail.Server
+namespace Shuttle.Esb.EMail
 {
     public class EMailSection : ConfigurationSection
     {
-        [ConfigurationProperty("host", IsRequired = true)]
+        [ConfigurationProperty("emailClientType", IsRequired = false)]
+        public string EMailClientType => (string)this["emailClientType"];
+
+        [ConfigurationProperty("apiKey", IsRequired = false)]
+        public string ApiKey => (string)this["apiKey"];
+
+        [ConfigurationProperty("host", IsRequired = false)]
         public string Host => (string)this["host"];
 
         [ConfigurationProperty("port", IsRequired = false, DefaultValue = 25)]
@@ -43,8 +49,23 @@ namespace Shuttle.Esb.EMail.Server
                     "Could not get the 'email' section from the application configuration file.");
             }
 
-            var result = new EMailConfiguration(section.Host, section.Port);
+            var result = new EMailConfiguration();
 
+            if (!string.IsNullOrWhiteSpace(section.EMailClientType))
+            {
+                result.WithEMailClientType(section.EMailClientType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(section.Host))
+            {
+                result.WithHost(section.Host, section.Port);
+            }
+
+            if (section.EnableSsl)
+            {
+                result.UseSsl();
+            }
+            
             if (!section.UseDefaultCredentials)
             {
                 result.WithCredentials(section.Username, section.Password, section.Domain);

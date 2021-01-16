@@ -1,9 +1,11 @@
 using System;
 
-namespace Shuttle.Esb.EMail.Server
+namespace Shuttle.Esb.EMail
 {
 	public interface IEMailConfiguration
 	{
+        string EMailClientType { get; }
+        string ApiKey { get; }
 		string Host { get; }
         int Port { get; }
         bool UseDefaultCredentials { get; }

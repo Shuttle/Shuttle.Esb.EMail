@@ -1,6 +1,6 @@
 ﻿using Shuttle.Core.Contract;
 
-namespace Shuttle.Esb.EMail.Server
+namespace Shuttle.Esb.EMail
 {
     public static class EMailConfigurationExtensions
     {

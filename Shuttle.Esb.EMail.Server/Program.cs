@@ -54,6 +54,16 @@ namespace Shuttle.Esb.EMail.Server
 
             container.RegisterInstance(configuration);
 
+            if (!string.IsNullOrWhiteSpace(configuration.EMailClientType))
+            {
+                container.Register(typeof(IEMailClient), Type.GetType(configuration.EMailClientType),
+                    Lifestyle.Singleton);
+            }
+            else
+            {
+                container.Register<IEMailClient, DefaultEMailClient>();
+            }
+
             ServiceBus.Register(container);
 
             _bus = ServiceBus.Create(container).Start();

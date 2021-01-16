@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include=".build\log4net.xml" />
+    <Content Include=".package\log4net.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".build\app.config" />
-    <None Include=".build\package.msbuild" />
+    <None Include=".package\app.config" />
+    <None Include=".package\package.msbuild" />
   </ItemGroup>
 
   <ItemGroup>

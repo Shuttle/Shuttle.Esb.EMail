@@ -9,22 +9,22 @@ namespace Shuttle.Esb.EMail.Messages
 	{
 		public static void SetBodyEncoding(this SendEMailCommand command, Encoding encoding)
 		{
-			Guard.AgainstNull(command, "command");
-			Guard.AgainstNull(encoding, "encoding");
+			Guard.AgainstNull(command, nameof(command));
+			Guard.AgainstNull(encoding, nameof(encoding));
 
 			command.BodyEncoding = encoding.HeaderName;
 		}
 
 		public static bool HasBodyEncoding(this SendEMailCommand command)
 		{
-			Guard.AgainstNull(command, "command");
+            Guard.AgainstNull(command, nameof(command));
 
-			return command.BodyEncoding != null;
+			return !string.IsNullOrWhiteSpace(command.BodyEncoding);
 		}
 
 		public static Encoding GetBodyEncoding(this SendEMailCommand command)
 		{
-			Guard.AgainstNull(command, "command");
+            Guard.AgainstNull(command, nameof(command));
 
 			if (NullEncoding(command.BodyEncoding))
 			{
@@ -41,7 +41,42 @@ namespace Shuttle.Esb.EMail.Messages
 			}
 		}
 
-		private static bool NullEncoding(string encoding)
+        public static void SetHtmlBodyEncoding(this SendEMailCommand command, Encoding encoding)
+        {
+            Guard.AgainstNull(command, nameof(command));
+            Guard.AgainstNull(encoding, nameof(encoding));
+
+            command.HtmlBodyEncoding = encoding.HeaderName;
+        }
+
+        public static Encoding GetHtmlBodyEncoding(this SendEMailCommand command)
+        {
+            Guard.AgainstNull(command, nameof(command));
+
+            if (NullEncoding(command.HtmlBodyEncoding))
+            {
+                return null;
+            }
+
+            try
+            {
+                return Encoding.GetEncoding(command.HtmlBodyEncoding);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        
+        public static bool HasHtmlBodyEncoding(this SendEMailCommand command)
+        {
+            Guard.AgainstNull(command, nameof(command));
+
+            return !string.IsNullOrWhiteSpace(command.HtmlBodyEncoding);
+        }
+
+
+        private static bool NullEncoding(string encoding)
 		{
 			return string.IsNullOrEmpty(encoding)
 			       ||
@@ -56,22 +91,22 @@ namespace Shuttle.Esb.EMail.Messages
 
 		public static void SetSubjectEncoding(this SendEMailCommand command, Encoding encoding)
 		{
-			Guard.AgainstNull(command, "command");
-			Guard.AgainstNull(encoding, "encoding");
+            Guard.AgainstNull(command, nameof(command));
+			Guard.AgainstNull(encoding, nameof(encoding));
 
 			command.SubjectEncoding = encoding.HeaderName;
 		}
 
 		public static bool HasSubjectEncoding(this SendEMailCommand command)
 		{
-			Guard.AgainstNull(command, "command");
+            Guard.AgainstNull(command, nameof(command));
 
 			return command.GetSubjectEncoding() != null;
 		}
 
 		public static Encoding GetSubjectEncoding(this SendEMailCommand command)
 		{
-			Guard.AgainstNull(command, "command");
+            Guard.AgainstNull(command, nameof(command));
 
 			if (NullEncoding(command.SubjectEncoding))
 			{
@@ -90,7 +125,7 @@ namespace Shuttle.Esb.EMail.Messages
 
 		public static MailPriority GetMailPriority(this SendEMailCommand command)
 		{
-			Guard.AgainstNull(command, "command");
+            Guard.AgainstNull(command, nameof(command));
 
 			try
 			{
@@ -104,9 +139,23 @@ namespace Shuttle.Esb.EMail.Messages
 
 		public static void SetMailPriority(this SendEMailCommand command, MailPriority priority)
 		{
-			Guard.AgainstNull(command, "command");
+            Guard.AgainstNull(command, nameof(command));
 
 			command.Priority = priority.ToString();
 		}
+		
+        public static string GetSenderDisplayNameOptional(this SendEMailCommand command)
+		{
+            Guard.AgainstNull(command, nameof(command));
+
+            return string.IsNullOrWhiteSpace(command.SenderDisplayName) ? string.Empty : command.SenderDisplayName;
+        }
+		
+        public static string GetRecipientDisplayNameOptional(this SendEMailCommand command)
+		{
+            Guard.AgainstNull(command, nameof(command));
+
+            return string.IsNullOrWhiteSpace(command.RecipientDisplayName) ? string.Empty : command.RecipientDisplayName;
+        }
 	}
 }

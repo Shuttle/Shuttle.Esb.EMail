@@ -1,22 +1,22 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-#if NET461
-[assembly: AssemblyTitle(".NET Framework 4.6.1")]
+#if NETFRAMEWORK
+[assembly: AssemblyTitle(".NET Framework")]
 #endif
 
-#if NETCOREAPP2_1
-[assembly: AssemblyTitle(".NET Core 2.1")]
+#if NETCOREAPP
+[assembly: AssemblyTitle(".NET Core")]
 #endif
 
-#if NETSTANDARD2_0
-[assembly: AssemblyTitle(".NET Standard 2.0")]
+#if NETSTANDARD
+[assembly: AssemblyTitle(".NET Standard")]
 #endif
 
-[assembly: AssemblyVersion("11.0.0.0")]
-[assembly: AssemblyCopyright("Copyright © Eben Roux 2019")]
+[assembly: AssemblyVersion("11.0.1.0")]
+[assembly: AssemblyCopyright("Copyright (c) 2021, Eben Roux")]
 [assembly: AssemblyProduct("Shuttle.Esb.EMail")]
-[assembly: AssemblyCompany("Shuttle")]
+[assembly: AssemblyCompany("Eben Roux")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("11.0.0")]
+[assembly: AssemblyInformationalVersion("11.0.1")]
 [assembly: ComVisible(false)]
