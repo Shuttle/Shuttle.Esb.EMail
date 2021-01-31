@@ -2,8 +2,8 @@
 
 <package>
 	<metadata>
-		<id>Shuttle.Esb.EMail</id>
-		<version>11.0.2</version>
+		<id>Shuttle.Esb.EMail.Messages</id>
+		<version>11.0.1</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
 		<license type="expression">BSD-3-Clause</license>
@@ -11,15 +11,11 @@
 		<icon>images\logo.png</icon>
 		<repository type="git" url="https://github.com/shuttle/Shuttle.Esb.EMail.git" />
 		<projectUrl>https://github.com/shuttle/Shuttle.Esb.EMail</projectUrl>
-		<description>Contains services that facilitate e-mailing using an IEMailClient implementation.</description>
+		<description>Contains messages interact with the Shuttle.Esb.EMail.Server endpoint.</description>
 		<copyright>Copyright (c) 2021, Eben Roux</copyright>
 		<tags>smtp email mail</tags>
 		<dependencies>
-      <dependency id="Shuttle.Core.Configuration" version="10.0.4" />
-      <dependency id="Shuttle.Core.Container" version="11.2.2" />
       <dependency id="Shuttle.Core.Contract" version="10.0.3" />
-      <dependency id="Shuttle.Core.Reflection" version="11.0.0" />
-      <dependency id="Shuttle.Esb.EMail.Messages" version="11.0.1" />
 		</dependencies>
 	</metadata>
 	<files>

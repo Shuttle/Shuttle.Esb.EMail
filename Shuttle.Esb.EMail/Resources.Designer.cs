@@ -19,7 +19,7 @@ namespace Shuttle.Esb.EMail {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,6 +61,15 @@ namespace Shuttle.Esb.EMail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not load assembly &apos;{0}&apos; when trying to get type &apos;{1}&apos;.  Exception: {2}.
+        /// </summary>
+        public static string AssemblyLoadException {
+            get {
+                return ResourceManager.GetString("AssemblyLoadException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File &apos;{0}&apos; not added as attachment.  Exception reported: {1}.
         /// </summary>
         public static string AttachmentFileException {
@@ -84,6 +93,15 @@ namespace Shuttle.Esb.EMail {
         public static string AttachmentsNotSupportedException {
             get {
                 return ResourceManager.GetString("AttachmentsNotSupportedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load IEMailClient implementation type &apos;{0}&apos;..
+        /// </summary>
+        public static string EMailClientImplementTypeException {
+            get {
+                return ResourceManager.GetString("EMailClientImplementTypeException", resourceCulture);
             }
         }
         

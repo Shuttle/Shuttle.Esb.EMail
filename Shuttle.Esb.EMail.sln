@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail", "Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj", "{D245753A-425F-43FC-BB3C-C1E5462FC5A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail.Server", "Shuttle.Esb.EMail.Server\Shuttle.Esb.EMail.Server.csproj", "{EFC13583-963D-4F78-896F-A433D45F17C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail.Server.Smtp", "Shuttle.Esb.EMail.Server\Shuttle.Esb.EMail.Server.Smtp.csproj", "{EFC13583-963D-4F78-896F-A433D45F17C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{714ECD20-D98F-43AA-B859-392B73FC9D27}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,7 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Esb.EMail.SendGrid", "Shuttle.Esb.EMail.SendGrid\Shuttle.Esb.EMail.SendGrid.csproj", "{A1A0968F-9768-480C-B105-0D4A2CED5DC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail.SendGrid", "Shuttle.Esb.EMail.SendGrid\Shuttle.Esb.EMail.SendGrid.csproj", "{A1A0968F-9768-480C-B105-0D4A2CED5DC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail.Messages", "Shuttle.Esb.EMail.Messages\Shuttle.Esb.EMail.Messages.csproj", "{A9FF779D-2320-4138-8B55-5D99F3FB29F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail.Sender", "Shuttle.Esb.EMail.Sender\Shuttle.Esb.EMail.Sender.csproj", "{32F85B99-4030-4953-A3F8-D4BE40CB71F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Esb.EMail.Server.SendGrid", "Shuttle.Esb.EMail.Server\Shuttle.Esb.EMail.Server.SendGrid.csproj", "{E1336E47-601A-4DEA-9AF1-9F809DA5F0FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{A1A0968F-9768-480C-B105-0D4A2CED5DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1A0968F-9768-480C-B105-0D4A2CED5DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1A0968F-9768-480C-B105-0D4A2CED5DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9FF779D-2320-4138-8B55-5D99F3FB29F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FF779D-2320-4138-8B55-5D99F3FB29F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FF779D-2320-4138-8B55-5D99F3FB29F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FF779D-2320-4138-8B55-5D99F3FB29F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32F85B99-4030-4953-A3F8-D4BE40CB71F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32F85B99-4030-4953-A3F8-D4BE40CB71F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32F85B99-4030-4953-A3F8-D4BE40CB71F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32F85B99-4030-4953-A3F8-D4BE40CB71F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1336E47-601A-4DEA-9AF1-9F809DA5F0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1336E47-601A-4DEA-9AF1-9F809DA5F0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1336E47-601A-4DEA-9AF1-9F809DA5F0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1336E47-601A-4DEA-9AF1-9F809DA5F0FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

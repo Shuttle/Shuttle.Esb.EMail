@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
@@ -14,20 +15,22 @@ using ILog = Shuttle.Core.Logging.ILog;
 
 namespace Shuttle.Esb.EMail.Server
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
             ServiceHost.Run<Host>();
         }
     }
 
     internal class Host : IServiceHost
     {
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly ILog _log;
         private IServiceBus _bus;
         private IKernel _kernel;
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private Task _task;
 
         public Host()
@@ -41,6 +44,12 @@ namespace Shuttle.Esb.EMail.Server
             }
 
             _log = Log.For(this);
+
+#if NETCOREAPP
+            _log.Information("[framework] : .net core");
+#else
+            _log.Information("[framework] : .net");
+#endif
         }
 
         public void Start()
@@ -56,8 +65,34 @@ namespace Shuttle.Esb.EMail.Server
 
             if (!string.IsNullOrWhiteSpace(configuration.EMailClientType))
             {
-                container.Register(typeof(IEMailClient), Type.GetType(configuration.EMailClientType),
-                    Lifestyle.Singleton);
+                var emailClientType = Type.GetType(configuration.EMailClientType,
+                    assemblyName =>
+                    {
+                        Assembly assembly;
+
+                        try
+                        {
+                            assembly = Assembly.LoadFrom(
+                                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{assemblyName.Name}.dll"));
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ApplicationException(string.Format(Resources.AssemblyLoadException, assemblyName.Name, configuration.EMailClientType, ex.Message));
+                        }
+                        
+                        return assembly;
+                    },
+                    (assembly, typeName, ignore) => assembly == null ?
+                        Type.GetType(typeName, false, ignore) :
+                        assembly.GetType(typeName, false, ignore)
+                );
+
+                if (emailClientType == null)
+                {
+                    throw new ApplicationException(string.Format(Resources.EMailClientImplementTypeException, configuration.EMailClientType));
+                }
+
+                container.Register(typeof(IEMailClient), emailClientType, Lifestyle.Singleton);
             }
             else
             {
@@ -77,7 +112,7 @@ namespace Shuttle.Esb.EMail.Server
                 {
                     tracker.Expire(configuration.TrackerExpiryDuration);
 
-                    ThreadSleep.While((int)configuration.TrackerExpiryInterval.TotalMilliseconds, cancellationToken);
+                    ThreadSleep.While((int) configuration.TrackerExpiryInterval.TotalMilliseconds, cancellationToken);
                 }
             });
 

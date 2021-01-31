@@ -22,7 +22,7 @@ namespace Shuttle.Esb.EMail
         public bool UseDefaultCredentials => (bool)this["useDefaultCredentials"];
 
         [ConfigurationProperty("enableSsl", IsRequired = false, DefaultValue = false)]
-        public bool EnableSsl => (bool)this["enabledSsl"];
+        public bool EnableSsl => (bool)this["enableSsl"];
 
         [ConfigurationProperty("domain", IsRequired = false, DefaultValue = "")]
         public string Domain => (string)this["domain"];

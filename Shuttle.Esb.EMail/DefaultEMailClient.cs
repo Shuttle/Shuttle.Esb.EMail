@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Text;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Logging;
 using Shuttle.Esb.EMail.Messages;
@@ -29,6 +28,7 @@ namespace Shuttle.Esb.EMail
         public void Send(SendEMailCommand message)
         {
             Guard.AgainstNull(message, nameof(message));
+            Guard.AgainstNull(message.FromAddress, nameof(message.FromAddress));
 
             var sendHtml = !string.IsNullOrWhiteSpace(message.HtmlBody);
             var body = sendHtml ? message.HtmlBody : message.Body;
@@ -38,11 +38,29 @@ namespace Shuttle.Esb.EMail
                 body = body.Replace("\r", string.Empty).Replace("\n", "\r\n");
             }
 
-            var mail = new MailMessage(message.RecipientEMailAddress, message.SenderEMailAddress.Replace(';', ','), message.Subject, body)
+            var mail = new MailMessage
             {
+                From = message.FromAddress.GetMailAddress(),
+                Subject = message.Subject,
+                Body = body,
                 IsBodyHtml = sendHtml,
                 Priority = message.GetMailPriority()
             };
+
+            foreach (var address in message.ToAddresses)
+            {
+                mail.To.Add(address.GetMailAddress());
+            }
+
+            foreach (var address in message.CCAddresses)
+            {
+                mail.CC.Add(address.GetMailAddress());
+            }
+
+            foreach (var address in message.BccAddresses)
+            {
+                mail.Bcc.Add(address.GetMailAddress());
+            }
 
             if (!sendHtml && message.HasBodyEncoding())
             {
@@ -57,16 +75,6 @@ namespace Shuttle.Esb.EMail
             if (message.HasSubjectEncoding())
             {
                 mail.SubjectEncoding = message.GetSubjectEncoding();
-            }
-
-            if (!string.IsNullOrEmpty(message.CC))
-            {
-                mail.CC.Add(message.CC.Replace(';', ','));
-            }
-
-            if (!string.IsNullOrEmpty(message.Bcc))
-            {
-                mail.Bcc.Add(message.Bcc.Replace(';', ','));
             }
 
             if (message.Attachments.Count > 0)

@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AssemblyLoadException" xml:space="preserve">
+    <value>Could not load assembly '{0}' when trying to get type '{1}'.  Exception: {2}</value>
+    <comment>0 = assembly name, 1 = type, 2 = exception reported</comment>
+  </data>
   <data name="AttachmentFileException" xml:space="preserve">
     <value>File '{0}' not added as attachment.  Exception reported: {1}</value>
     <comment>0 = file to add as attachment, 1 = exception reported</comment>
@@ -127,6 +131,10 @@
   </data>
   <data name="AttachmentsNotSupportedException" xml:space="preserve">
     <value>No `AttachmentFolder` has been specified in the application configuration file.</value>
+  </data>
+  <data name="EMailClientImplementTypeException" xml:space="preserve">
+    <value>Could not load IEMailClient implementation type '{0}'.</value>
+    <comment>0 = type</comment>
   </data>
   <data name="Missing" xml:space="preserve">
     <value>missing</value>

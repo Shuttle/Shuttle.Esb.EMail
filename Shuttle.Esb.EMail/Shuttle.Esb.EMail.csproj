@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -14,10 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.3" />
-    <PackageReference Include="Shuttle.Core.Container" Version="11.0.0" />
-    <PackageReference Include="Shuttle.Core.Contract" Version="10.0.1" />
-    <PackageReference Include="Shuttle.Core.Reflection" Version="10.0.10" />
+    <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Core.Container" Version="11.2.2" />
+    <PackageReference Include="Shuttle.Core.Contract" Version="10.0.3" />
+    <PackageReference Include="Shuttle.Core.Reflection" Version="11.0.0" />
+    <PackageReference Include="Shuttle.Esb.EMail.Messages" Version="11.0.1" />
   </ItemGroup>
 
   <ItemGroup>

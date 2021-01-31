@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration).Smtp\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include=".package\log4net.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Core.Ninject" Version="10.0.5" />
+    <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.1.1" />
+    <PackageReference Include="Shuttle.Core.Uris" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Esb" Version="11.1.0" />
+    <PackageReference Include="Shuttle.Esb.EMail" Version="11.0.1" />
+    <PackageReference Include="Shuttle.Esb.EMail.Messages" Version="11.0.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".package\app.smtp.config" />
+    <None Include=".package\package.msbuild" />
+  </ItemGroup>
+
+</Project>
