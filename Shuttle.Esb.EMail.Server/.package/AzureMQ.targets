@@ -4,15 +4,23 @@
   <ItemGroup>
     <Dependency Include="Azure.Core">
       <Version>1.8.1</Version>
-      <Library>netstandard2.0</Library>
+      <CoreLibrary>netstandard2.0</CoreLibrary>
     </Dependency>
     <Dependency Include="Azure.Storage.Queues">
       <Version>12.6.0</Version>
-      <Library>netstandard2.0</Library>
+      <CoreLibrary>netstandard2.0</CoreLibrary>
     </Dependency>
     <Dependency Include="Azure.Storage.Common">
       <Version>12.7.0</Version>
-      <Library>netstandard2.0</Library>
+      <CoreLibrary>netstandard2.0</CoreLibrary>
+    </Dependency>
+    <Dependency Include="System.Diagnostics.DiagnosticSource">
+      <Version>4.6.0</Version>
+      <CoreLibrary>netstandard1.1</CoreLibrary>
+    </Dependency>
+    <Dependency Include="System.Memory.Data">
+      <Version>1.0.1</Version>
+      <CoreLibrary>netstandard2.0</CoreLibrary>
     </Dependency>
   </ItemGroup>
 
@@ -25,7 +33,7 @@
       DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
       SkipUnchangedFiles="false" Condition="$(Framework) == 'net461'" />
     <Copy
-      SourceFiles="@(Dependency->'$(WorkingFolder)\queue-package\%(Identity).%(Version)\lib\%(lib)\%(Identity).dll')"
+      SourceFiles="@(Dependency->'$(WorkingFolder)\queue-package\%(Identity).%(Version)\lib\%(CoreLibrary)\%(Identity).dll')"
       DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
       SkipUnchangedFiles="false" Condition="$(Framework) == 'netcoreapp2.1'" />                           
   </Target>

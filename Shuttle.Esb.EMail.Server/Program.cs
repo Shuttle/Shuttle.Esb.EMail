@@ -9,6 +9,7 @@ using Shuttle.Core.Container;
 using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
 using Shuttle.Core.Ninject;
+using Shuttle.Core.Reflection;
 using Shuttle.Core.ServiceHost;
 using Shuttle.Core.Threading;
 using ILog = Shuttle.Core.Logging.ILog;
@@ -44,6 +45,11 @@ namespace Shuttle.Esb.EMail.Server
             }
 
             _log = Log.For(this);
+            
+            foreach (var assembly in new ReflectionService().GetMatchingAssemblies(".+"))
+            {
+                _log.Debug($"[assembly] : assembly name = '{assembly.FullName}'");
+            }
 
 #if NETCOREAPP
             _log.Information("[framework] : .net core");

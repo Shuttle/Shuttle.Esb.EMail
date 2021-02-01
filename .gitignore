@@ -4,6 +4,7 @@
 [Bb]in/
 [Oo]bj/
 [Dd]eployment
+email-server/
 
 # mstest test results
 TestResults

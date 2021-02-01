@@ -3,7 +3,7 @@
 <package>
 	<metadata>
 		<id>Shuttle.Esb.EMail.SendGrid</id>
-		<version>11.0.2</version>
+		<version>11.0.3</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
 		<license type="expression">BSD-3-Clause</license>
@@ -16,7 +16,7 @@
 		<tags>smtp email sendgrid</tags>
 		<dependencies>
       <dependency id="SendGrid" version="9.22.0" />
-      <dependency id="Shuttle.Esb.EMail" version="11.0.3" />
+      <dependency id="Shuttle.Esb.EMail" version="11.0.4" />
       <dependency id="Shuttle.Esb.EMail.Messages" version="11.0.1" />
 		</dependencies>
 	</metadata>
