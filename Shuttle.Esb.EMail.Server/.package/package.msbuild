@@ -1,102 +1,116 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Package" ToolsVersion="4.0">
-	<Import Project="Shuttle.MSBuild.targets" />
+  <Import Project="Shuttle.MSBuild.targets" />
 
-	<ItemGroup>
+  <ItemGroup>
     <Client Include="Smtp;SendGrid" />
-	</ItemGroup>
+  </ItemGroup>
 
-	<Target Name="Build">
-		<MSBuild Projects="..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj" Targets="Rebuild" Properties="Configuration=Debug;Platform=AnyCPU" />
-		<MSBuild Projects="..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj
-             " Targets="Rebuild" Properties="Configuration=Release;Platform=AnyCPU" />
-	</Target>
-
-	<Target Name="Publish">
-    <Exec Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f net461 --no-build" />
-    <Exec Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f netcoreapp2.1 --no-build" />
-	</Target>
-
-	<Target Name="SemanticVersion">
-		<Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
-			<Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
-		</Prompt>
-
-		<Error Text="Please enter a version number." Condition="$(SemanticVersion) == ''" />
-
-		<ItemGroup>
-      <AssemblyInfoFiles Include="..\Properties\AssemblyInfo.cs" />
-		</ItemGroup>
-
-		<RegexFindAndReplace Files="@(AssemblyInfoFiles)"
-		                     FindExpression="AssemblyInformationalVersion\s*\(\s*&quot;.*&quot;\s*\)"
-		                     ReplacementText="AssemblyInformationalVersion(&quot;$(SemanticVersion)&quot;)" />
-		<RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyVersion\s*\(\s*&quot;.*&quot;\s*\)"
-		                     ReplacementText="AssemblyVersion(&quot;$(SemanticVersion).0&quot;)" />
-	</Target>
-
-	<Target Name="ZipDeployment">
-<Exec Command="echo $(OutputPath) - $(ZipPath)" />
-
-    <ItemGroup>
-			<ZipFiles Include="$(OutputPath)\**\*.*" />
-		</ItemGroup>
-
-		<Zip
-			Files="@(ZipFiles)"
-			RelativeFolder="$(OutputPath)"
-			ZipFilePath="$(ZipPath)" />
-	</Target>
-
-	<Target Name="PackageServer">
-    <ItemGroup>
-      <SmtpNet461ServerFiles Include="..\bin\Release.Smtp\net461\publish\**\*.*" Exclude="..\bin\Release.Smtp\net461\publish\**\*.pdb;..\bin\Release.Smtp\net461\publish\**\*.config" />
-      <SmtpCore21ServerFiles Include="..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.*" Exclude="..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.pdb;..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.config" />
-      <SendGridNet461ServerFiles Include="..\bin\Release.SendGrid\net461\publish\**\*.*" Exclude="..\bin\Release.SendGrid\net461\publish\**\*.pdb;..\bin\Release.SendGrid\net461\publish\**\*.config" />
-      <SendGridCore21ServerFiles Include="..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.*" Exclude="..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.pdb;..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.config" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(SmtpNet461ServerFiles)" DestinationFolder="deployment\Smtp.net461\" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SmtpCore21ServerFiles)" DestinationFolder="deployment\Smtp.netcoreapp2.1\" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SendGridNet461ServerFiles)" DestinationFolder="deployment\SendGrid.net461\" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SendGridCore21ServerFiles)" DestinationFolder="deployment\SendGrid.netcoreapp2.1\" SkipUnchangedFiles="false" />
-
-    <Copy SourceFiles=".\app.%(Client.Identity).config" DestinationFiles="deployment\%(Client.Identity).netcoreapp2.1\Shuttle.Esb.EMail.Server.%(Client.Identity).dll.config" SkipUnchangedFiles="false"/>
-    <Copy SourceFiles=".\app.%(Client.Identity).config" DestinationFiles="deployment\%(Client.Identity).net461\Shuttle.Esb.EMail.Server.%(Client.Identity).exe.config" SkipUnchangedFiles="false"/>
-    <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).netcoreapp2.1\" SkipUnchangedFiles="false"/>
-    <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).net461\" SkipUnchangedFiles="false"/>
+  <Target Name="Build">
+    <MSBuild Projects="..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj" Targets="Rebuild"
+             Properties="Configuration=Debug;Platform=AnyCPU" />
+    <MSBuild Projects="..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj
+             " Targets="Rebuild"
+             Properties="Configuration=Release;Platform=AnyCPU" />
   </Target>
 
-	<Target Name="Package" DependsOnTargets="SemanticVersion">
-		<MSBuild
-			Projects="$(MSBuildProjectFile)"
-			Targets="Build" />
+  <Target Name="Publish">
+    <Exec
+      Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f net461 --no-build --self-contained false" />
+    <Exec
+      Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f netcoreapp2.1 --no-build --self-contained false" />
+  </Target>
 
-		<MSBuild
-			Projects="$(MSBuildProjectFile)"
-			Targets="Publish" />
+  <Target Name="SemanticVersion">
+    <Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
+      <Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
+    </Prompt>
 
-		<MSBuild
-			Projects="$(MSBuildProjectFile)"
-			Targets="PackageServer" />
+    <Error Text="Please enter a version number." Condition="$(SemanticVersion) == ''" />
 
-		<MSBuild
-			Projects="$(MSBuildProjectFile)"
-			Targets="ZipDeployment"
-			Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\Smtp.net461;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.Smtp-net461.zip" />
+    <ItemGroup>
+      <AssemblyInfoFiles Include="..\Properties\AssemblyInfo.cs" />
+    </ItemGroup>
 
-		<MSBuild                      
-			Projects="$(MSBuildProjectFile)"
-			Targets="ZipDeployment"
-			Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\Smtp.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.Smtp-netcoreapp2.1.zip" />
+    <RegexFindAndReplace Files="@(AssemblyInfoFiles)"
+                         FindExpression="AssemblyInformationalVersion\s*\(\s*&quot;.*&quot;\s*\)"
+                         ReplacementText="AssemblyInformationalVersion(&quot;$(SemanticVersion)&quot;)" />
+    <RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyVersion\s*\(\s*&quot;.*&quot;\s*\)"
+                         ReplacementText="AssemblyVersion(&quot;$(SemanticVersion).0&quot;)" />
+  </Target>
 
-		<MSBuild
-			Projects="$(MSBuildProjectFile)"
-			Targets="ZipDeployment"
-			Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.net461;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-net461.zip" />
+  <Target Name="ZipDeployment">
+    <Exec Command="echo $(OutputPath) - $(ZipPath)" />
 
-		<MSBuild                      
-			Projects="$(MSBuildProjectFile)"
-			Targets="ZipDeployment"
-			Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-netcoreapp2.1.zip" />
-	</Target>
+    <ItemGroup>
+      <ZipFiles Include="$(OutputPath)\**\*.*" />
+    </ItemGroup>
+
+    <Zip
+      Files="@(ZipFiles)"
+      RelativeFolder="$(OutputPath)"
+      ZipFilePath="$(ZipPath)" />
+  </Target>
+
+  <Target Name="PackageServer">
+    <ItemGroup>
+      <SmtpNet461ServerFiles Include="..\bin\Release.Smtp\net461\publish\**\*.*"
+                             Exclude="..\bin\Release.Smtp\net461\publish\**\*.pdb;..\bin\Release.Smtp\net461\publish\**\*.config" />
+      <SmtpCore21ServerFiles Include="..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.*"
+                             Exclude="..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.pdb;..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.config" />
+      <SendGridNet461ServerFiles Include="..\bin\Release.SendGrid\net461\publish\**\*.*"
+                                 Exclude="..\bin\Release.SendGrid\net461\publish\**\*.pdb;..\bin\Release.SendGrid\net461\publish\**\*.config" />
+      <SendGridCore21ServerFiles Include="..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.*"
+                                 Exclude="..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.pdb;..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.config" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(SmtpNet461ServerFiles)" DestinationFolder="deployment\Smtp.net461\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SmtpCore21ServerFiles)" DestinationFolder="deployment\Smtp.netcoreapp2.1\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SendGridNet461ServerFiles)" DestinationFolder="deployment\SendGrid.net461\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SendGridCore21ServerFiles)" DestinationFolder="deployment\SendGrid.netcoreapp2.1\%(RecursiveDir)" SkipUnchangedFiles="false" />
+
+    <Copy SourceFiles=".\app.%(Client.Identity).config"
+          DestinationFiles="deployment\%(Client.Identity).netcoreapp2.1\Shuttle.Esb.EMail.Server.%(Client.Identity).dll.config"
+          SkipUnchangedFiles="false" />
+    <Copy SourceFiles=".\app.%(Client.Identity).config"
+          DestinationFiles="deployment\%(Client.Identity).net461\Shuttle.Esb.EMail.Server.%(Client.Identity).exe.config"
+          SkipUnchangedFiles="false" />
+    <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).netcoreapp2.1\"
+          SkipUnchangedFiles="false" />
+    <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).net461\"
+          SkipUnchangedFiles="false" />
+  </Target>
+
+  <Target Name="Package" DependsOnTargets="SemanticVersion">
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="Build" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="Publish" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="PackageServer" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="ZipDeployment"
+      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\Smtp.net461;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.Smtp-net461.zip" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="ZipDeployment"
+      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\Smtp.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.Smtp-netcoreapp2.1.zip" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="ZipDeployment"
+      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.net461;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-net461.zip" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="ZipDeployment"
+      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-netcoreapp2.1.zip" />
+  </Target>
 </Project>

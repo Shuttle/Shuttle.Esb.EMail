@@ -1,21 +1,17 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Package" ToolsVersion="15">
   <Import Project="Shuttle.MSBuild.targets" />
+  <Import Project="AzureMQ.targets" />
   <Import Project="RabbitMQ.targets" />
 
   <PropertyGroup>
     <ServerFolder>email-server</ServerFolder>
-    <WorkingFolder>email-working\</WorkingFolder>
-    <ServerDownloadVersion>11.0.1</ServerDownloadVersion>
+    <WorkingFolder>email-working</WorkingFolder>
+    <ServerDownloadVersion>11.0.2</ServerDownloadVersion>
   </PropertyGroup>
 
   <Target Name="RemoveDeployment">
     <RemoveDir Directories="$(ServerFolder)\Shuttle.Esb.EMail.Server-$(Framework)" />
     <RemoveDir Directories="$(WorkingFolder)" />
-  </Target>
-
-  <Target Name="GetQueuePackage">
-    <Exec
-      Command="nuget install Shuttle.Esb.$(QueuePackage) -version $(QueuePackageVersion) -OutputDirectory $(WorkingFolder)\queue-package" />
   </Target>
 
   <Target Name="Package" DependsOnTargets="RemoveDeployment">
@@ -25,6 +21,10 @@
 
     <Prompt Text="Framework [net461 or netcoreapp2.1 (default)]:" Condition="$(Framework) == ''">
       <Output TaskParameter="UserInput" PropertyName="Framework" />
+    </Prompt>
+
+    <Prompt Text=".NET Standard Version - default is netstandard2.0:" Condition="$(Framework) == ''">
+      <Output TaskParameter="UserInput" PropertyName="NetStandardVersion" />
     </Prompt>
 
     <Prompt Text="Queue package - default is RabbitMQ:" Condition="$(QueuePackage) == ''">
@@ -37,6 +37,7 @@
 
     <PropertyGroup>
       <Framework Condition="$(Framework) == ''">netcoreapp2.1</Framework>
+      <NetStandardVersion Condition="$(NetStandardVersion) == ''">netstandard2.0</NetStandardVersion>
       <QueuePackage Condition="$(QueuePackage) == ''">RabbitMQ</QueuePackage>
       <Client Condition="$(Client) == ''">Smtp</Client>
     </PropertyGroup>
@@ -50,21 +51,26 @@
     <Message Text="-----------" />
     <Message Text="Client = $(Client)" />
     <Message Text="Framework = $(Framework)" />
+    <Message Text=".NET Standard Version = $(NetStandardVersion)" />
     <Message Text="Queue package = $(QueuePackage)" />
     <Message Text="Queue package version = $(QueuePackageVersion)" />
     <Message Text="" />
 
     <DownloadFile
-      SourceUrl="https://github.com/Shuttle/Shuttle.Esb.EMail/releases/download/v$(ServerDownloadVersion)/Shuttle.Esb.EMail.$(Client).Server-$(Framework).zip"
+      SourceUrl="https://github.com/Shuttle/Shuttle.Esb.EMail/releases/download/v$(ServerDownloadVersion)/Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip"
       DestinationFolder="$(WorkingFolder)" />
 
     <Unzip
-      DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server-$(Framework)"
-      SourceFiles="$(WorkingFolder)\Shuttle.Esb.EMail.Server-$(Framework).zip" />
+      DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
+      SourceFiles="$(WorkingFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip" />
+
+    <Exec
+      Command="nuget install Shuttle.Esb.$(QueuePackage) -version $(QueuePackageVersion) -OutputDirectory $(WorkingFolder)\queue-package" />
 
     <MSBuild
       Projects="$(MSBuildProjectFile)"
-      Targets="Package$(QueuePackage)" />
+      Targets="Package$(QueuePackage)"
+      Properties="QueuePackageVersion=$(QueuePackageVersion);Framework=$(Framework);NetStandardVersion=$(NetStandardVersion);Client=$(Client)"/>
 
     <RemoveDir Directories="$(WorkingFolder)" />
 
