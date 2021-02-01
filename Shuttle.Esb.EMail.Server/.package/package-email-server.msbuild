@@ -6,7 +6,7 @@
   <PropertyGroup>
     <ServerFolder>email-server</ServerFolder>
     <WorkingFolder>email-working</WorkingFolder>
-    <ServerDownloadVersion>11.0.2</ServerDownloadVersion>
+    <ServerDownloadVersion>11.0.4</ServerDownloadVersion>
   </PropertyGroup>
 
   <Target Name="RemoveDeployment">

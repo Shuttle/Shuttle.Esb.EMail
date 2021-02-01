@@ -1,13 +1,26 @@
-﻿using SendGrid;
+﻿using System.Configuration;
+using SendGrid;
 using SendGrid.Helpers.Mail;
-using Shuttle.Core.Configuration;
+using Shuttle.Core.Contract;
 using Shuttle.Esb.EMail.Messages;
 
 namespace Shuttle.Esb.EMail.SendGrid
 {
     public class EMailClient : IEMailClient
     {
-        private readonly string _apiKey = ConfigurationItem<string>.ReadSetting("SendGridApiKey").GetValue();
+        private readonly string _apiKey;
+
+        public EMailClient(IEMailConfiguration configuration)
+        {
+            Guard.AgainstNull(configuration, nameof(configuration));
+
+            _apiKey = configuration.ApiKey;
+
+            if (string.IsNullOrWhiteSpace(_apiKey))
+            {
+                throw new ConfigurationErrorsException(Resources.MissingApiKeyException);
+            }
+        }
 
         public void Send(SendEMailCommand message)
         {

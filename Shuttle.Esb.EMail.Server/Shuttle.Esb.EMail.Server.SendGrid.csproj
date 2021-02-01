@@ -19,8 +19,7 @@
     <PackageReference Include="Shuttle.Esb" Version="11.1.0" />
     <PackageReference Include="Shuttle.Esb.EMail" Version="11.0.4" />
     <PackageReference Include="Shuttle.Esb.EMail.Messages" Version="11.0.1" />
-    <PackageReference Include="Shuttle.Esb.EMail.SendGrid" Version="11.0.3" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.1" />
+    <PackageReference Include="Shuttle.Esb.EMail.SendGrid" Version="11.0.4" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 
