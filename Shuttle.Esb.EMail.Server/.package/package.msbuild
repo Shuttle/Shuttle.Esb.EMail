@@ -93,6 +93,7 @@
       Projects="$(MSBuildProjectFile)"
       Targets="PackageServer" />
 
+    <!--
     <MSBuild
       Projects="$(MSBuildProjectFile)"
       Targets="ZipDeployment"
@@ -112,5 +113,6 @@
       Projects="$(MSBuildProjectFile)"
       Targets="ZipDeployment"
       Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-netcoreapp2.1.zip" />
+      -->
   </Target>
 </Project>

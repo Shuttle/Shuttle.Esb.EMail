@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Xml.XPath;
 using Shuttle.Core.Configuration;
 
 namespace Shuttle.Esb.EMail
@@ -54,6 +55,11 @@ namespace Shuttle.Esb.EMail
             if (!string.IsNullOrWhiteSpace(section.EMailClientType))
             {
                 result.WithEMailClientType(section.EMailClientType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(section.ApiKey))
+            {
+                result.WithApiKey(section.ApiKey);
             }
 
             if (!string.IsNullOrWhiteSpace(section.Host))

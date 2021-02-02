@@ -17,8 +17,6 @@
     <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.1.1" />
     <PackageReference Include="Shuttle.Core.Uris" Version="10.0.5" />
     <PackageReference Include="Shuttle.Esb" Version="11.1.0" />
-    <PackageReference Include="Shuttle.Esb.EMail" Version="11.0.4" />
-    <PackageReference Include="Shuttle.Esb.EMail.Messages" Version="11.0.1" />
     <PackageReference Include="Shuttle.Esb.EMail.SendGrid" Version="11.0.4" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
@@ -33,6 +31,10 @@
     <None Include=".package\package.msbuild" />
     <None Include=".package\AzureMQ.targets" />
     <None Include=".package\RabbitMQ.targets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj" />
   </ItemGroup>
 
 </Project>

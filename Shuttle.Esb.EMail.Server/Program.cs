@@ -66,7 +66,7 @@ namespace Shuttle.Esb.EMail.Server
 
             var container = new NinjectComponentContainer(_kernel);
             var configuration = EMailSection.GetConfiguration();
-
+            
             container.RegisterInstance(configuration);
 
             if (!string.IsNullOrWhiteSpace(configuration.EMailClientType))

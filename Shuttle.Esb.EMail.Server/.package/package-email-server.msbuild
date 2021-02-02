@@ -6,15 +6,15 @@
   <PropertyGroup>
     <ServerFolder>email-server</ServerFolder>
     <WorkingFolder>email-working</WorkingFolder>
-    <ServerDownloadVersion>11.0.4</ServerDownloadVersion>
+    <ServerVersion>11.0.4</ServerVersion>
   </PropertyGroup>
 
   <Target Name="RemoveDeployment">
-    <RemoveDir Directories="$(ServerFolder)\Shuttle.Esb.EMail.Server-$(Framework)" />
+    <RemoveDir Directories="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)" />
     <RemoveDir Directories="$(WorkingFolder)" />
   </Target>
 
-  <Target Name="Package" DependsOnTargets="RemoveDeployment">
+  <Target Name="Package">
     <Prompt Text="Client [SendGrid or Smtp (default)]:" Condition="$(Client) == ''">
       <Output TaskParameter="UserInput" PropertyName="Client" />
     </Prompt>
@@ -56,13 +56,30 @@
     <Message Text="Queue package version = $(QueuePackageVersion)" />
     <Message Text="" />
 
+    <MSBuild
+      Projects="package.msbuild"
+      Properties="SemanticVersion=$(ServerVersion)"/>
+
+    <MSBuild
+      Projects="$(MSBuildProjectFile)"
+      Targets="RemoveDeployment"
+      Properties="QueuePackageVersion=$(QueuePackageVersion);Framework=$(Framework);NetStandardVersion=$(NetStandardVersion);Client=$(Client)"/>
+
+    <!--
     <DownloadFile
-      SourceUrl="https://github.com/Shuttle/Shuttle.Esb.EMail/releases/download/v$(ServerDownloadVersion)/Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip"
+      SourceUrl="https://github.com/Shuttle/Shuttle.Esb.EMail/releases/download/v$(ServerVersion)/Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip"
       DestinationFolder="$(WorkingFolder)" />
 
     <Unzip
       DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
-      SourceFiles="$(WorkingFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip" />
+      SourceFiles="$(WorkingFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip" /
+      -->
+
+    <ItemGroup>
+      <ServerFiles Include="deployment\$(Client).$(Framework)\**\*.*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(ServerFiles)" DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)\%(RecursiveDir)" SkipUnchangedFiles="false" />
 
     <Exec
       Command="nuget install Shuttle.Esb.$(QueuePackage) -version $(QueuePackageVersion) -OutputDirectory $(WorkingFolder)\queue-package" />
@@ -70,7 +87,7 @@
     <MSBuild
       Projects="$(MSBuildProjectFile)"
       Targets="Package$(QueuePackage)"
-      Properties="QueuePackageVersion=$(QueuePackageVersion);Framework=$(Framework);NetStandardVersion=$(NetStandardVersion);Client=$(Client)"/>
+      Properties="WorkingFolder=$(WorkingFolder);QueuePackageVersion=$(QueuePackageVersion);Framework=$(Framework);NetStandardVersion=$(NetStandardVersion);Client=$(Client)"/>
 
     <RemoveDir Directories="$(WorkingFolder)" />
 
