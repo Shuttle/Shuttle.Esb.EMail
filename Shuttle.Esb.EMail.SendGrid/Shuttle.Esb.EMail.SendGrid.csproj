@@ -14,7 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
     <PackageReference Include="SendGrid" Version="9.22.0" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

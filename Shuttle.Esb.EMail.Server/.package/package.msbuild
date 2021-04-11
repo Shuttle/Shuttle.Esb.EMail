@@ -17,7 +17,7 @@
     <Exec
       Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f net461 --no-build --self-contained false" />
     <Exec
-      Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f netcoreapp2.1 --no-build --self-contained false" />
+      Command="dotnet publish ..\Shuttle.Esb.EMail.Server.%(Client.Identity).csproj -c Release -f net50 --no-build --self-contained false" />
   </Target>
 
   <Target Name="SemanticVersion">
@@ -55,26 +55,26 @@
     <ItemGroup>
       <SmtpNet461ServerFiles Include="..\bin\Release.Smtp\net461\publish\**\*.*"
                              Exclude="..\bin\Release.Smtp\net461\publish\**\*.pdb;..\bin\Release.Smtp\net461\publish\**\*.config" />
-      <SmtpCore21ServerFiles Include="..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.*"
-                             Exclude="..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.pdb;..\bin\Release.Smtp\netcoreapp2.1\publish\**\*.config" />
+      <SmtpNet50ServerFiles Include="..\bin\Release.Smtp\net50\publish\**\*.*"
+                             Exclude="..\bin\Release.Smtp\net50\publish\**\*.pdb;..\bin\Release.Smtp\net50\publish\**\*.config" />
       <SendGridNet461ServerFiles Include="..\bin\Release.SendGrid\net461\publish\**\*.*"
                                  Exclude="..\bin\Release.SendGrid\net461\publish\**\*.pdb;..\bin\Release.SendGrid\net461\publish\**\*.config" />
-      <SendGridCore21ServerFiles Include="..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.*"
-                                 Exclude="..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.pdb;..\bin\Release.SendGrid\netcoreapp2.1\publish\**\*.config" />
+      <SendGridNet50ServerFiles Include="..\bin\Release.SendGrid\net50\publish\**\*.*"
+                                 Exclude="..\bin\Release.SendGrid\net50\publish\**\*.pdb;..\bin\Release.SendGrid\net50\publish\**\*.config" />
     </ItemGroup>
 
     <Copy SourceFiles="@(SmtpNet461ServerFiles)" DestinationFolder="deployment\Smtp.net461\%(RecursiveDir)" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SmtpCore21ServerFiles)" DestinationFolder="deployment\Smtp.netcoreapp2.1\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SmtpNet50ServerFiles)" DestinationFolder="deployment\Smtp.net50\%(RecursiveDir)" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(SendGridNet461ServerFiles)" DestinationFolder="deployment\SendGrid.net461\%(RecursiveDir)" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SendGridCore21ServerFiles)" DestinationFolder="deployment\SendGrid.netcoreapp2.1\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SendGridNet50ServerFiles)" DestinationFolder="deployment\SendGrid.net50\%(RecursiveDir)" SkipUnchangedFiles="false" />
 
     <Copy SourceFiles=".\app.%(Client.Identity).config"
-          DestinationFiles="deployment\%(Client.Identity).netcoreapp2.1\Shuttle.Esb.EMail.Server.%(Client.Identity).dll.config"
+          DestinationFiles="deployment\%(Client.Identity).net50\Shuttle.Esb.EMail.Server.%(Client.Identity).dll.config"
           SkipUnchangedFiles="false" />
     <Copy SourceFiles=".\app.%(Client.Identity).config"
           DestinationFiles="deployment\%(Client.Identity).net461\Shuttle.Esb.EMail.Server.%(Client.Identity).exe.config"
           SkipUnchangedFiles="false" />
-    <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).netcoreapp2.1\"
+    <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).net50\"
           SkipUnchangedFiles="false" />
     <Copy SourceFiles=".\log4net.xml" DestinationFolder="deployment\%(Client.Identity).net461\"
           SkipUnchangedFiles="false" />
@@ -102,7 +102,7 @@
     <MSBuild
       Projects="$(MSBuildProjectFile)"
       Targets="ZipDeployment"
-      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\Smtp.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.Smtp-netcoreapp2.1.zip" />
+      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\Smtp.net50;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.Smtp-net50.zip" />
 
     <MSBuild
       Projects="$(MSBuildProjectFile)"
@@ -112,7 +112,7 @@
     <MSBuild
       Projects="$(MSBuildProjectFile)"
       Targets="ZipDeployment"
-      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.netcoreapp2.1;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-netcoreapp2.1.zip" />
+      Properties="OutputPath=$(MSBuildProjectDirectory)\deployment\SendGrid.net50;ZipPath=$(MSBuildProjectDirectory)\deployment\Shuttle.Esb.EMail.Server.SendGrid-net50.zip" />
       -->
   </Target>
 </Project>

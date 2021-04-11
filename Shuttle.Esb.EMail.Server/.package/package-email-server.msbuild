@@ -19,7 +19,7 @@
       <Output TaskParameter="UserInput" PropertyName="Client" />
     </Prompt>
 
-    <Prompt Text="Framework [net461 or netcoreapp2.1 (default)]:" Condition="$(Framework) == ''">
+    <Prompt Text="Framework [net461 or net50 (default)]:" Condition="$(Framework) == ''">
       <Output TaskParameter="UserInput" PropertyName="Framework" />
     </Prompt>
 
@@ -36,13 +36,13 @@
     </Prompt>
 
     <PropertyGroup>
-      <Framework Condition="$(Framework) == ''">netcoreapp2.1</Framework>
+      <Framework Condition="$(Framework) == ''">net50</Framework>
       <NetStandardVersion Condition="$(NetStandardVersion) == ''">netstandard2.0</NetStandardVersion>
       <QueuePackage Condition="$(QueuePackage) == ''">RabbitMQ</QueuePackage>
       <Client Condition="$(Client) == ''">Smtp</Client>
     </PropertyGroup>
 
-    <Error Text="Valid values for 'Framework' are [net461,netcoreapp2.1]" Condition="$(Framework) != 'net461' and $(Framework) != 'netcoreapp2.1'" />
+    <Error Text="Valid values for 'Framework' are [net461,net50]" Condition="$(Framework) != 'net461' and $(Framework) != 'net50'" />
     <Error Text="Please specify a version to use with queue package $(QueuePackage)" Condition="$(QueuePackageVersion) == ''" />
 
     <Message Text="" />

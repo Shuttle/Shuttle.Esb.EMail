@@ -31,6 +31,6 @@
     <Copy
       SourceFiles="@(Dependency->'$(WorkingFolder)\queue-package\%(Identity).%(Version)\lib\%(CoreLibrary)\%(Identity).dll')"
       DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
-      SkipUnchangedFiles="false" Condition="$(Framework) == 'netcoreapp2.1'" />                           
+      SkipUnchangedFiles="false" Condition="$(Framework) != 'net461'"/>                           
   </Target>
 </Project>                  

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks>net461;net50</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration).SendGrid\</OutputPath>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <PackageReference Include="Shuttle.Core.Ninject" Version="10.0.7" />
     <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.1.1" />
     <PackageReference Include="Shuttle.Core.Uris" Version="10.0.5" />
-    <PackageReference Include="Shuttle.Esb" Version="11.1.0" />
+    <PackageReference Include="Shuttle.Esb" Version="11.2.0" />
     <PackageReference Include="Shuttle.Esb.EMail.SendGrid" Version="11.0.4" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shuttle.Esb.EMail.SendGrid\Shuttle.Esb.EMail.SendGrid.csproj" />
     <ProjectReference Include="..\Shuttle.Esb.EMail\Shuttle.Esb.EMail.csproj" />
   </ItemGroup>
 
