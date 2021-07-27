@@ -7,24 +7,17 @@
     <ServerFolder>email-server</ServerFolder>
     <WorkingFolder>email-working</WorkingFolder>
     <ServerVersion>11.0.4</ServerVersion>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <Target Name="RemoveDeployment">
-    <RemoveDir Directories="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)" />
+    <RemoveDir Directories="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)" />
     <RemoveDir Directories="$(WorkingFolder)" />
   </Target>
 
   <Target Name="Package">
     <Prompt Text="Client [SendGrid or Smtp (default)]:" Condition="$(Client) == ''">
       <Output TaskParameter="UserInput" PropertyName="Client" />
-    </Prompt>
-
-    <Prompt Text="Framework [net461 or net50 (default)]:" Condition="$(Framework) == ''">
-      <Output TaskParameter="UserInput" PropertyName="Framework" />
-    </Prompt>
-
-    <Prompt Text=".NET Standard Version - default is netstandard2.0:" Condition="$(Framework) == ''">
-      <Output TaskParameter="UserInput" PropertyName="NetStandardVersion" />
     </Prompt>
 
     <Prompt Text="Queue package - default is RabbitMQ:" Condition="$(QueuePackage) == ''">
@@ -36,13 +29,10 @@
     </Prompt>
 
     <PropertyGroup>
-      <Framework Condition="$(Framework) == ''">net50</Framework>
-      <NetStandardVersion Condition="$(NetStandardVersion) == ''">netstandard2.0</NetStandardVersion>
       <QueuePackage Condition="$(QueuePackage) == ''">RabbitMQ</QueuePackage>
       <Client Condition="$(Client) == ''">Smtp</Client>
     </PropertyGroup>
 
-    <Error Text="Valid values for 'Framework' are [net461,net50]" Condition="$(Framework) != 'net461' and $(Framework) != 'net50'" />
     <Error Text="Please specify a version to use with queue package $(QueuePackage)" Condition="$(QueuePackageVersion) == ''" />
 
     <Message Text="" />
@@ -50,36 +40,24 @@
     <Message Text="PARAMETERS:" />
     <Message Text="-----------" />
     <Message Text="Client = $(Client)" />
-    <Message Text="Framework = $(Framework)" />
-    <Message Text=".NET Standard Version = $(NetStandardVersion)" />
     <Message Text="Queue package = $(QueuePackage)" />
     <Message Text="Queue package version = $(QueuePackageVersion)" />
     <Message Text="" />
 
     <MSBuild
       Projects="package.msbuild"
-      Properties="SemanticVersion=$(ServerVersion)"/>
+      Properties="SemanticVersion=$(ServerVersion);RuntimeIdentifier=$(RuntimeIdentifier)"/>
 
     <MSBuild
       Projects="$(MSBuildProjectFile)"
       Targets="RemoveDeployment"
-      Properties="QueuePackageVersion=$(QueuePackageVersion);Framework=$(Framework);NetStandardVersion=$(NetStandardVersion);Client=$(Client)"/>
-
-    <!--
-    <DownloadFile
-      SourceUrl="https://github.com/Shuttle/Shuttle.Esb.EMail/releases/download/v$(ServerVersion)/Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip"
-      DestinationFolder="$(WorkingFolder)" />
-
-    <Unzip
-      DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
-      SourceFiles="$(WorkingFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework).zip" /
-      -->
+      Properties="QueuePackageVersion=$(QueuePackageVersion);Client=$(Client)"/>
 
     <ItemGroup>
-      <ServerFiles Include="deployment\$(Client).$(Framework)\**\*.*" />
+      <ServerFiles Include="deployment\$(Client)\$(RuntimeIdentifier)\**\*.*" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(ServerFiles)" DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(ServerFiles)" DestinationFolder="$(ServerFolder)\$(Client)\$(RuntimeIdentifier)\%(RecursiveDir)" SkipUnchangedFiles="false" />
 
     <Exec
       Command="nuget install Shuttle.Esb.$(QueuePackage) -version $(QueuePackageVersion) -OutputDirectory $(WorkingFolder)\queue-package" />
@@ -87,7 +65,7 @@
     <MSBuild
       Projects="$(MSBuildProjectFile)"
       Targets="Package$(QueuePackage)"
-      Properties="WorkingFolder=$(WorkingFolder);QueuePackageVersion=$(QueuePackageVersion);Framework=$(Framework);NetStandardVersion=$(NetStandardVersion);Client=$(Client)"/>
+      Properties="WorkingFolder=$(WorkingFolder);QueuePackageVersion=$(QueuePackageVersion);Client=$(Client)"/>
 
     <RemoveDir Directories="$(WorkingFolder)" />
 

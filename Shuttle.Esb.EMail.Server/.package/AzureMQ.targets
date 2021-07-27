@@ -22,15 +22,11 @@
 
   <Target Name="PackageAzureMQ">
     <Copy
-      SourceFiles="$(WorkingFolder)\queue-package\Shuttle.Esb.AzureMQ.$(QueuePackageVersion)\lib\$(NetStandardVersion)\Shuttle.Esb.AzureMQ.dll"
-      DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)" SkipUnchangedFiles="false" />
-    <Copy
-      SourceFiles="@(Dependency->'$(WorkingFolder)\queue-package\%(Identity).%(Version))\lib\net461\%(Identity).dll')"
-      DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
-      SkipUnchangedFiles="false" Condition="$(Framework) == 'net461'" />
+      SourceFiles="$(WorkingFolder)\queue-package\Shuttle.Esb.AzureMQ.$(QueuePackageVersion)\lib\netstandard2.1\Shuttle.Esb.AzureMQ.dll"
+      DestinationFolder="$(ServerFolder)\$(Client)\$(RuntimeIdentifier)" SkipUnchangedFiles="false" />
     <Copy
       SourceFiles="@(Dependency->'$(WorkingFolder)\queue-package\%(Identity).%(Version)\lib\%(CoreLibrary)\%(Identity).dll')"
-      DestinationFolder="$(ServerFolder)\Shuttle.Esb.EMail.Server.$(Client)-$(Framework)"
-      SkipUnchangedFiles="false" Condition="$(Framework) != 'net461'"/>                           
+      DestinationFolder="$(ServerFolder)\$(Client)\$(RuntimeIdentifier)"
+      SkipUnchangedFiles="false"/>
   </Target>
 </Project>                  
