@@ -1,5 +1,5 @@
 ﻿FROM mcr.microsoft.com/dotnet/runtime:5.0
 
-COPY ./email-server/SendGrid/linux-x64/. /opt/shuttle.esb.email.server/.
+COPY ./email-server/Smtp/linux-x64/. /opt/shuttle.esb.email.server/.
 
-ENTRYPOINT ["/opt/shuttle.esb.email.server/Shuttle.Esb.EMail.Server.SendGrid"]
+ENTRYPOINT ["/opt/shuttle.esb.email.server/Shuttle.Esb.EMail.Server.Smtp"]
