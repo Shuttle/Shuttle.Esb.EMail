@@ -10,9 +10,9 @@ namespace Shuttle.Esb.EMail.Sender
         {
             var container = new NinjectComponentContainer(new StandardKernel());
 
-            ServiceBus.Register(container);
+            container.RegisterServiceBus();
 
-            using (var bus = ServiceBus.Create(container).Start())
+            using (var bus = container.Resolve<IServiceBus>().Start())
             {
                 var message = new SendEMailCommand
                 {

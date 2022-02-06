@@ -105,9 +105,9 @@ namespace Shuttle.Esb.EMail.Server
                 container.Register<IEMailClient, DefaultEMailClient>();
             }
 
-            ServiceBus.Register(container);
+            container.RegisterServiceBus();
 
-            _bus = ServiceBus.Create(container).Start();
+            _bus = container.Resolve<IServiceBus>().Start();
 
             var cancellationToken = _cancellationTokenSource.Token;
             var tracker = container.Resolve<IEMailTracker>();

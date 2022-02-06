@@ -3,23 +3,14 @@ using Shuttle.Core.Contract;
 
 namespace Shuttle.Esb.EMail
 {
-    public class Bootstrap : IComponentRegistryBootstrap
+    public static class ComponentRegistryExtensions
     {
-        private static bool _registryBootstrapCalled;
-
-        public void Register(IComponentRegistry registry)
+        public static void RegisterEMail(this IComponentRegistry registry)
         {
             Guard.AgainstNull(registry, nameof(registry));
 
-            if (_registryBootstrapCalled)
-            {
-                return;
-            }
-
             registry.AttemptRegister<IEMailTracker, DefaultEMailTracker>();
             registry.AttemptRegister<IEMailAttachmentService, DefaultEMailAttachmentService>();
-
-            _registryBootstrapCalled = true;
         }
     }
 }

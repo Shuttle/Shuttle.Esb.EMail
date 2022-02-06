@@ -2,6 +2,10 @@
 
 An e-mailing solution built on Shuttle.Esb that makes use of SMTP for sending mails with optional attachments.
 
+## Registration
+
+You can register the relevant dependencies using `ComponentRegistryExtensions.RegisterEMail(IComponentRegistry)`.
+
 ## Sending an e-mail request
 
 Send a `SendEMailCommand` to an endpoint that will perform the e-mail communication.

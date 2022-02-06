@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net50</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration).SendGrid\</OutputPath>
@@ -15,12 +15,12 @@
 
   <ItemGroup>
     <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Core.Ninject" Version="10.0.7" />
+    <PackageReference Include="Shuttle.Core.Ninject" Version="10.1.0" />
     <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.1.1" />
     <PackageReference Include="Shuttle.Core.Uris" Version="10.0.5" />
-    <PackageReference Include="Shuttle.Esb" Version="11.2.0" />
+    <PackageReference Include="Shuttle.Esb" Version="12.0.0" />
     <PackageReference Include="Shuttle.Esb.EMail.SendGrid" Version="11.0.4" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
